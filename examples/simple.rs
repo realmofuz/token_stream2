@@ -1,9 +1,13 @@
 fn main() {
     let to_parse: proc_macro2::TokenStream = r#"
-        "hey"
+    <html>
+        <h1>{ "Hello world!" }</h1>
+    </html>
     "#
         .parse()
         .expect("infallible");
     
-    let mut _stream: token_stream2::TokenStream = to_parse.into();
+    println!("{to_parse:#?}");
+    let mut stream: token_stream2::TokenStream = to_parse.into();
+    println!("{stream:#?}");
 }

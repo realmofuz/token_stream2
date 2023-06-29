@@ -2,34 +2,79 @@
 /// This is an abstraction over the system that `proc_macro` uses in it's TokenTree.
 #[derive(Clone, Debug, PartialEq)]
 pub enum Token {
+    /// Represents an identifier.
     Ident(String),
+    /// Represents a valid integer in normal or hexadecimal form.
     Integer(i128),
+    /// Represents a valid float.
     Float(f64),
+    /// Represents a byte character. `b'a'`
     ByteChar(char),
+    /// Represents a normal character. `'a'`
     Char(char),
+    /// Represents a byte string. `b"hello"`
     ByteString(String),
+    /// Represents a normal string. `"hello"`
     String(String),
+    /// Represents `+`.
     Plus,
+    /// Represents `-`.
     Minus,
+    /// Represents `/`.
     Slash,
+    /// Represents `*`.
     Star,
+    /// Represents `@`.
     At,
+    /// Represents `&`.
     Ampersand,
+    /// Represents `;`.
     Semi,
+    /// Represents `:`.
     Colon,
+    /// Represents `>` .
     GreaterThan,
+    /// Represents `<`.
     LessThan,
+    /// Reprsents `{`.
     OpenBrace,
+    /// Represents `}`.
     CloseBrace,
+    /// Represents `[`.
     OpenBracket,
+    /// Represents `]`.
     CloseBracket,
+    // Represents `(`.
     OpenParen,
+    /// Represents `)`.
     CloseParen,
+    /// Represents `,`.
     Comma,
+    /// Represents `'`.
     SingleQuote,
+    /// Represents `"`.
     DoubleQuote,
+    /// Represents `!`.
     Bang,
+    /// Represents `?`.
     Question,
+    /// Represents `.`.
+    Dot,
+    /// Represents `~`.
+    Tilde,
+    /// Represents `%`.
+    Percent,
+    /// Represents `^`.
+    Caret,
+    /// Represents `|`.
+    Pipe,
+    /// Represents `#`.
+    Hash,
+    /// Represents `$`.
+    Dollar,
+    /// Represents `=`,
+    Equal,
+    /// Represents no token.
     None,
 }
 
@@ -159,7 +204,15 @@ fn recursive_convert(tokens: proc_macro2::TokenStream) -> TokenStream {
                         '?' => Token::Question,
                         '!' => Token::Bang,
                         ',' => Token::Comma,
-                        _ => panic!("unknown punctuation {punct:?} - please report this to the developer of `tokenstream2`"),
+                        '.' => Token::Dot,
+                        '~' => Token::Tilde,
+                        '%' => Token::Percent,
+                        '^' => Token::Caret,
+                        '|' => Token::Pipe,
+                        '#' => Token::Hash,
+                        '$' => Token::Dollar,
+                        '=' => Token::Equal,
+                        _ => unreachable!(),
                     };
                     tokens_output.push(SpannedToken {
                         token: tok,
