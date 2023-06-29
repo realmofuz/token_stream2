@@ -2,12 +2,16 @@
 name = "token_stream2"
 version = "0.1.0"
 edition = "2021"
-
-# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+authors = ["Realm of Uz"]
+license = "Apache-2.0"
+repository = "https://github.com/realmofuz/token_stream2"
+keywords = ["macros", "syn"]
+categories = ["development-tools::procedural-macro-helpers"]
+rust-version = "1.56"
+documentation = "https://docs.rs/token_stream2/"
 
 [dependencies]
 proc-macro2 = "1.0.63"
-
 
 [[example]]
 path = "examples/simple.rs"

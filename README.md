@@ -1,7 +1,8 @@
 # tokenstream2
 `token_stream2` is a helper crate for parsing procedural macros. 
 It allows you to quickly convert from `proc_macro2::TokenStream` into a `token_stream2::TokenStream`,
-which allows you to have a much easier time traversing the token stream.
+which allows you to have a much easier time traversing the token stream. 
+It's also extremely lightweight with only one dependency, `proc_macro2`, which you most likely already have.
 
 ## Usage
 You can easily convert into `tokenstream2::TokenStream` using `.into()`.
@@ -23,3 +24,4 @@ It also has it's own `.peek()` method you can use to quickly look ahead, since t
 
 ## Examples
 You can look in the `/examples` directory to see an example of it in use.
+
