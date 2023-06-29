@@ -123,8 +123,9 @@ impl Iterator for TokenStream {
     type Item = SpannedToken;
 
     fn next(&mut self) -> Option<Self::Item> {
+        let x = self.tokens.get(self.iter_ptr).cloned();
         self.iter_ptr += 1;
-        self.tokens.get(self.iter_ptr).cloned()
+        x
     }
 }
 
