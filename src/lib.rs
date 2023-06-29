@@ -76,6 +76,8 @@ pub enum Token {
     Equal,
     /// Represents no token.
     None,
+    /// Represents an uncategorizable literal.
+    Literal(String),
 }
 
 /// This is an equivalent to the `Token` type with a span attached. Use `SpannedToken::span()` to retrieve it's span, and `SpannedToken::token()` to retreieve it's token.
@@ -96,7 +98,7 @@ impl SpannedToken {
     ///  "#
     ///  .parse()
     ///  .expect("infallible");
-    /// 
+    ///
     /// let mut stream: token_stream2::TokenStream = to_parse.into();
     /// assert!(stream.peek(2).unwrap().token() == &token_stream2::Token::OpenParen);
     /// assert!(stream.peek(3).unwrap().token() == &token_stream2::Token::CloseParen);
@@ -137,7 +139,7 @@ impl TokenStream {
     ///  "#
     ///  .parse()
     ///  .expect("infallible");
-    /// 
+    ///
     /// let mut stream: token_stream2::TokenStream = to_parse.into();
     /// assert!(stream.peek(2).unwrap().token() == &token_stream2::Token::OpenParen);
     /// assert!(stream.peek(3).unwrap().token() == &token_stream2::Token::CloseParen);
@@ -292,7 +294,10 @@ fn recursive_convert(tokens: proc_macro2::TokenStream) -> TokenStream {
                         });
                     }
                     if panic {
-                        panic!("failed to parse literal {literal:?} - please report this to the developer of `tokenstream2`");
+                        tokens_output.push(SpannedToken {
+                            token: Token::Literal(str_value),
+                            span: literal.span(),
+                        });
                     }
                 }
             }
